@@ -88,6 +88,7 @@ function drawLine() {
 
     s = 'y = ' + m.toFixed(2) + 'x+' + b.toFixed(2);
     textSize(20);
+    fill(255, 0, 0);
     strokeWeight(1);
     textAlign(CENTER);
     text(s, 100, 100)
