@@ -36,7 +36,7 @@ function gradientDecent() {
         var err = y - guess;
         m = m + (err * x) * lr;
         b = b + (err) * lr;
-         
+
     }
 
 }
@@ -87,8 +87,8 @@ function drawLine() {
     line(x1, y1, x2, y2);
 
     s = 'y = ' + m.toFixed(2) + 'x+' + b.toFixed(2);
-    textSize(20);
     fill(255, 0, 0);
+    textSize(20);
     strokeWeight(1);
     textAlign(CENTER);
     text(s, 100, 100)
