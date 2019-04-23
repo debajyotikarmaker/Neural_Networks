@@ -1,13 +1,31 @@
 let data = [];
 let m = 1;
 let b = 0;
+let slVal;
+let lr;
+let lrShow;
 
 function setup() {
+
+    slider = createSlider(0, 1, 0.05, 0.01);
+    slider.style('width', '120px');
+
     var cnv = createCanvas(500, 500);
     cnv.position((windowWidth - width) / 2, (windowHeight - height) / 2);
+    cnv.parent('sketch-holder');
+
+    
+    //slider.position(20, 20);
+    lrShow = createDiv('');
+    
 }
 
 function draw() {
+
+    lr = slider.value();
+    window.document.getElementById('lr').innerHTML = 'Learning Rate = '+lr;
+    //print(data);
+    lrShow.html('LR = '+ lr +'');
     background(240);
     drawAxis();
     //print(data);
@@ -24,11 +42,11 @@ function draw() {
         drawLine();
         drawDist();
     }
-
+    
 }
 
 function gradientDecent() {
-    lr = 0.05;
+    //lr = 0.05;
     for (var i = 0; i < data.length; i++) {
         var x = data[i].x;
         var y = data[i].y;
@@ -90,17 +108,20 @@ function drawLine() {
     fill(255, 0, 0);
     textSize(20);
     strokeWeight(1);
-    textAlign(CENTER);
-    text(s, 100, 100)
+    //textAlign(CENTER);
+    text(s, 50, 100)
 }
 
 function mousePressed() {
     let x = map(mouseX, 0, width, 0, 1);
     let y = map(mouseY, 0, height, 1, 0);
     //let point = createVector(x, y);
-    let p = new Point(x, y);
-    data.push(p);
-    //print(data);
+    if (x > 0) {
+        let p = new Point(x, y);
+        data.push(p);
+        print(x);
+    }
+   
 }
 
 function drawAxis() {
@@ -114,6 +135,7 @@ function drawAxis() {
     x2 = map(x2, 0, 1, 0, width);
     y2 = map(y2, 0, 1, height, 0);
 
+    fill(0, 0, 0);
     stroke(0);
     strokeWeight(4);
     line(x1, y1, x2, y2);
@@ -121,8 +143,11 @@ function drawAxis() {
     for (var i = 0; i <= 1; i = i + 0.1) {
         xmarker = map(i, 0, 1, 0, width);
         ymarker = map(0.009, 0, 1, height, 0);
-        strokeWeight(4);
-        line(xmarker, ymarker, xmarker, ymarker + 10);
+        strokeWeight(1);
+        stroke(0);
+        text(i.toFixed(1),xmarker-20,ymarker);
+        stroke(200);
+        line(xmarker, ymarker, xmarker, ymarker - 500);
     }
 
     x1 = 0;
@@ -142,7 +167,10 @@ function drawAxis() {
     for (var i = 0; i <= 1; i = i + 0.1) {
         xmarker = map(0.0009, 0, 1, 0, width);
         ymarker = map(i, 0, 1, height, 0);
-        strokeWeight(4);
-        line(xmarker, ymarker, xmarker + 5, ymarker);
+        strokeWeight(1);
+        stroke(0);
+        text(i.toFixed(1),xmarker+4,ymarker+10)
+        stroke(200);
+        line(xmarker, ymarker, xmarker + 500, ymarker);
     }
 }
